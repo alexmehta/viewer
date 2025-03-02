@@ -1,6 +1,7 @@
-import * as THREE from '/three';
-import { MTLLoader } from '/three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from '/three/examples/jsm/loaders/OBJLoader.js';
+import * as THREE from 'three';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
 
 // Setup scene, camera, and renderer
 const scene = new THREE.Scene();
@@ -19,14 +20,14 @@ scene.add(new THREE.AmbientLight(0x404040));
 
 // Load MTL file first
 const mtlLoader = new MTLLoader();
-mtlLoader.load('/cottage_obj.mtl', (materials) => {
+mtlLoader.load('public/cottage_obj.mtl', (materials) => {
     materials.preload(); // Preload the materials
 
     // Then load the OBJ file with the loaded materials
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.load(
-        '/cottage_obj.obj',  // Use a fixed path for your OBJ model
+        'public/cottage_obj.obj',  // Use a fixed path for your OBJ model
         function (object) {
             object.position.set(0, 0, 0); // Adjust position if needed
             scene.add(object);
