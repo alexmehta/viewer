@@ -19,14 +19,14 @@ scene.add(new THREE.AmbientLight(0x404040));
 
 // Load MTL file first
 const mtlLoader = new MTLLoader();
-mtlLoader.load('public/cottage_obj.mtl', (materials) => {
+mtlLoader.load('/cottage_obj.mtl', (materials) => {
     materials.preload(); // Preload the materials
 
     // Then load the OBJ file with the loaded materials
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.load(
-        'public/cottage_obj.obj',  // Use a fixed path for your OBJ model
+        '/cottage_obj.obj',  // Use a fixed path for your OBJ model
         function (object) {
             object.position.set(0, 0, 0); // Adjust position if needed
             scene.add(object);
