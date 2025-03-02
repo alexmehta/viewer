@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 
-
 // Setup scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -18,27 +17,17 @@ light.position.set(5, 5, 5).normalize();
 scene.add(light);
 scene.add(new THREE.AmbientLight(0x404040));
 
-// Load MTL file first
 const mtlLoader = new MTLLoader();
-mtlLoader.load('public/cottage_obj.mtl', (materials) => {
-    materials.preload(); // Preload the materials
+mtlLoader.load('public/r2-d2.mtl', (materials) => {
+  materials.preload();
 
-    // Then load the OBJ file with the loaded materials
-    const objLoader = new OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.load(
-        'public/cottage_obj.obj',  // Use a fixed path for your OBJ model
-        function (object) {
-            object.position.set(0, 0, 0); // Adjust position if needed
-            scene.add(object);
-        },
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.error('An error happened', error);
-        }
-    );
+  // Load the OBJ file
+  const objLoader = new OBJLoader();
+  objLoader.setMaterials(materials); // Set the loaded materials
+  objLoader.load('public/r2-d2.obj', (object) => {
+    scene.add(object); // Add the object to the scene
+    object.position.set(0, 0, 0); // Set the position of the object
+  });
 });
 
 // Mouse Look Variables
