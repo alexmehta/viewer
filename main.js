@@ -97,20 +97,17 @@ function updateCameraMovement() {
 
 
     if (modelBoundingBox) {
-        const playerRadius = 3; // Adjust this value based on your needs
+        const playerRadius = 2; // Can change value
         const playerPosition = new THREE.Vector3(
             camera.position.x,
             camera.position.y,
             camera.position.z
         );
 
-        // Create a sphere around the player for collision
-        const playerSphere = new THREE.Sphere(playerPosition, playerRadius);
+        const playerSphere = new THREE.Sphere(playerPosition, playerRadius); // Create a sphere around the player for collision
 
-        // Check if player sphere intersects with model bounding box
-        if (modelBoundingBox.intersectsSphere(playerSphere)) {
-            // Collision detected, revert to old position
-            camera.position.copy(oldPosition);
+        if (modelBoundingBox.intersectsSphere(playerSphere)) { // Check if player sphere intersects with model bounding box
+            camera.position.copy(oldPosition); // Collision detected, revert to old position
         }
     }
 }
