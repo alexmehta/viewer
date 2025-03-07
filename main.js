@@ -40,6 +40,8 @@ mtlLoader.load('public/r2-d2.mtl', (materials) => {
   objLoader.load('public/r2-d2.obj', (object) => {
     scene.add(object); // Add the object to the scene
     object.position.set(0, 0, 0); // Set the position of the object
+
+    modelBoundingBox = new THREE.Box3().setFromObject(object); // Create a box
   });
 });
 
@@ -85,11 +87,29 @@ function updateCameraMovement() {
     direction.normalize(); // Keep movement consistent
 
     const right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), direction).normalize();
+    
+    const oldPosition = camera.position.clone(); // Store current position for collision detection
 
     if (keys.w) camera.position.addScaledVector(direction, moveSpeed);  // Move forward
     if (keys.s) camera.position.addScaledVector(direction, -moveSpeed); // Move backward
     if (keys.a) camera.position.addScaledVector(right, moveSpeed);      // Move left
     if (keys.d) camera.position.addScaledVector(right, -moveSpeed);     // Move right
+
+
+    if (modelBoundingBox) {
+        const playerRadius = 2; // Can change value
+        const playerPosition = new THREE.Vector3(
+            camera.position.x,
+            camera.position.y,
+            camera.position.z
+        );
+
+        const playerSphere = new THREE.Sphere(playerPosition, playerRadius); // Create a sphere around the player for collision
+
+        if (modelBoundingBox.intersectsSphere(playerSphere)) { // Check if player sphere intersects with model bounding box
+            camera.position.copy(oldPosition); // Collision detected, revert to old position
+        }
+    }
 }
 
 // Animation loop
