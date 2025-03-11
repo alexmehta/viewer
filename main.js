@@ -31,13 +31,13 @@ scene.add(light);
 scene.add(new THREE.AmbientLight(0x404040));
 
 const mtlLoader = new MTLLoader();
-mtlLoader.load('public/r2-d2.mtl', (materials) => {
+mtlLoader.load('public/mostUpdatedMtl.mtl', (materials) => {
   materials.preload();
 
   // Load the OBJ file
   const objLoader = new OBJLoader();
   objLoader.setMaterials(materials); // Set the loaded materials
-  objLoader.load('public/r2-d2.obj', (object) => {
+  objLoader.load('public/mostUpdatedMesh.obj', (object) => {
     scene.add(object); // Add the object to the scene
     object.position.set(0, 0, 0); // Set the position of the object
 
