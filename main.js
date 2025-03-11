@@ -7,7 +7,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false,
 });
 // use splat from url 
-viewer.addSplatScene('', {
+viewer.addSplatScene('output.splat', {
     'splatAlphaRemovalThreshold': 5,
     'showLoadingUI': true,
     'position': [0, 1, 0],
