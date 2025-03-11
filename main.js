@@ -97,7 +97,7 @@ function updateCameraMovement() {
 
 
     if (modelBoundingBox) {
-        const playerRadius = 2; // Can change value
+        const playerRadius = 0.25; // Can change value
         const playerPosition = new THREE.Vector3(
             camera.position.x,
             camera.position.y,
